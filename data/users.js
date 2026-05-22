@@ -1,4 +1,5 @@
 
-//simple storage
+//simple storage - temporary database
 const users = [];
-module.exports = users;
+
+export default users;

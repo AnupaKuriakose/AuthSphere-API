@@ -1,8 +1,10 @@
 import express from 'express'; //Imports the Express framework:Allows you to create a web server and handle HTTP requests easily.
 import cors from 'cors';//mports the CORS (Cross-Origin Resource Sharing) package:Allows your frontend application (like React) to securely talk to this backend from a different domain or port
 import authRoutes from './routes/authRoutes.js';
+import dotenv from 'dotenv';
 
 const app = express(); //creates express app
+dotenv.config(); // this loads .env variables into process.env
 
 app.use(cors()); //app.use -> register middleware : Activates CORS middleware globally for all incoming 
 // requests.Prevents browser security errors when external apps try to fetch data from your API.
@@ -21,4 +23,5 @@ const PORT = 5000;
 
 app.listen(PORT, ()=>{//starts the server on port 5000.
     console.log(`Server running on port ${PORT}`);
-})
+});
+

@@ -1,7 +1,8 @@
 //this is for jwt verification
 import jwt from 'jsonwebtoken'; //Imports the library needed to sign and verify JSON Web Tokens.
 
-//Defines the middleware function. It takes the request (req), response (res), and a next function to pass control to the next part of your code.
+//Defines the middleware function. It takes the request (req), response (res), 
+// and a next function to pass control to the next part of your code.
 const authMiddleware = (req, res, next) => {
     try {
         // 1. Get token from header
@@ -23,7 +24,8 @@ const authMiddleware = (req, res, next) => {
             });
         }
 
-        // 3. Verify token(The core step. It checks the token against your secret key. If it's valid, 
+        // 3. Verify token(The core step. It checks the token against your secret key. 
+        // If it's valid, 
         // it returns the user data hidden inside the token; if not, it throws an error.)
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 

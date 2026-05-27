@@ -222,15 +222,21 @@ Phase 1 Current Progress
 ✅ Modular Routing
 ✅ Register API
 ✅ Login API
+✅ Auth Middleware
+✅ Protected Route
+Login → Token generation → Client stores token → Sends in headers → Middleware verifies → Protected routes allowed
 
-Next
-
-➡️ Auth Middleware
-➡️ Protected Route
-
+✅ PostgreSQL setup
+- Login Neon with google account
+- Craete new project
+- click on connection string
+- copy and put it in .env
+- Create DB connection file - db/db.js
+- Create users table
+- Insert a test user
+- Verify data exists
 Then
 
-➡️ PostgreSQL setup
 ➡️ User table
 ➡️ DB integration
 

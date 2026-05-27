@@ -1,7 +1,7 @@
 import users from "../data/users.js";
 import bcrypt from 'bcryptjs';//s the third-party bcryptjs library.ibrary handles secure, mathematical hashing so passwords are never stored in plain text.
 import jwt from 'jsonwebtoken';
-
+import pool from '../db/db.js';
 export const registerUser = async (req, res) => {
 
     try {
@@ -15,12 +15,24 @@ export const registerUser = async (req, res) => {
         //Takes the plain text password and scrambles it using the bcrypt algorithm with a salt round factor of 10.
         //The await keyword pauses execution at this line until the hashing mathematically finishes.
         const hashPassword = await bcrypt.hash(password, 10);
-        const user = {
-            email,
-            password: hashPassword
-        }
-        users.push(user);
-        res.status(201).json({ message: 'User registered' });
+
+        //in-memory save(without DB)
+        // const user = {
+        //     email,
+        //     password: hashPassword
+        // }
+        // users.push(user);
+
+        //save to DB
+        //insert into DB //RETURNING *: instructs PostgreSQL to send back all the data f
+        // rom the newly inserted row (including auto-generated fields like id or created_at).
+        //  Without this, thedatabase would only report that the insert succeeded,
+        //  but not give you the new data.
+        //[email, hashedPassword]: This is the array of actual data matching your placeholders. 
+        // email replaces $1, and hashedPassword replaces $2.
+        //Why $1, $2 -This is called parameterized query It prevents:SQL injection,malformed queries
+        const result = await pool.query('INSERT INTO users(email, password) VALUES($1, $2) RETURNING *', [email, password]);
+        res.status(201).json({ message: 'User registered', user: result.rows[0] });
     }
     catch (err) {
 
